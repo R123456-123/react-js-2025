@@ -1,0 +1,5 @@
+imageURL : 'link'
+style={{}}
+shorter && syntax -> condition && //what to do (when you did't need else) 
+React uses your keys to know what happened if you later insert, delete, or reorder the items.
+[something, setSomething]
