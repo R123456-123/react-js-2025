@@ -174,4 +174,31 @@ function MyButton() {
 //Hooks are more restrictive than other functions. You can only call Hooks at the top of your components 
 // (or other Hooks). If you want to use useState in a condition or a loop, extract a new component and put it there.
 
+//This is called “lifting state up”. By moving state up, you’ve shared it between components.import {useState} from 'react'
+//Sharing data between components 
+export default function App() {
 
+    const [count , setCount] = useState(0);
+
+    function handleClick() {
+        setCount(count + 1);
+    }
+    return (
+        <div>
+          <h3>Updating separately</h3>
+          <MyButton  count={count} onClick={handleClick} />  
+          <MyButton count={count} onClick={handleClick} />
+        </div>
+    )
+}
+
+function MyButton( { count, onClick }) {
+    return (
+        <>
+          <button 
+              onClick={onClick} >
+              The {count} is changing.
+          </button>
+        </>
+    )
+}

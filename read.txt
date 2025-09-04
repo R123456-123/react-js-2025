@@ -1,0 +1,219 @@
+-> its is a js reuseable component based UI library
+-> Looks like HTML but isn't – JSX compiles to React.createElement() calls.
+-> Must return a single root element – You can use <div> or <> (React fragments).
+-> Attributes use camelCase – e.g., className instead of class, onClick instead of onclick.
+-> JavaScript inside {} – You can inject variables or expressions
+
+-> react + vite (tool) simple -> npm create vite
+-> next framework for react 
+
+->{ Run: npm create vite@latest my-app (npm create vite@latest client - -template react)
+Choose: Framework: React, Variant: JavaScript or TypeScript (your choice)
+Go into your new project: cd my-app
+Install dependencies: npm install
+Start the development server: npm run dev }
+
+->{React apps are made out of components. A component is a piece of the UI (user interface)
+that has its own logic and appearance. A component can be as small as a button, or as large as an entire page.
+
+React components are JavaScript functions that return markup:
+
+function MyButton() {
+  return (
+    <button>I'm a button</button>
+  );
+}
+}
+
+-> MyButton is capital because react component are written in capital letter
+
+-> there’s no need for a semicolon at the end of export class and export function
+
+-> props -> properties -> its a way to pass data from one component to another, like a parent pass to child etc.
+
+->{
+main.jsx → Starts your React app, connects React to HTML.
+App.jsx → Main component where you build your UI.
+App.css → Styles for App.jsx.
+index.css → Global styles for the whole app.
+}
+
+->{
+Default Export	export default ...	import AnyName from "..." 
+Named Export	export const ...	import { ExactName } from "..."
+Both in file	export default ...; export const ...;}
+
+-> rafce(React Arrow Function Component with Export) is very useful, it build the component basic boilerplate
+
+-> hooks ->  Component Render
+       │
+       ▼
+   useState(initialValue)  ← Hook (creates state)
+       │
+       ▼
+   [ state , setState ]   ← state value + function to update
+       │
+       ▼
+   UI Render (uses state)
+       │
+       ▼
+   User Interaction (button click, input change etc.)
+       │
+       ▼
+   setState(newValue)   ← updates state
+       │
+       ▼
+   React Re-renders component with new state
+       │
+       ▼
+   UI Updates
+
+
+-> Linting (ESLint in Vite)
+eslint.config.js      # ESLint config for linting
+Linting = automatic code quality + error checking.
+It enforces coding conventions (like semicolons, spacing, unused vars).
+
+-> public/ → static, not processed by Vite.
+
+-> index.css → global styles.
+
+-> App.css → component-level styles.
+
+-> my-app/
+│
+├── node_modules/         # Installed dependencies (auto-generated)
+├── public/               # Static assets (served as-is, not processed by Vite)
+│   └── vite.svg          # Example image
+│
+├── src/                  # Main source code (your React app lives here)
+│   ├── assets/           # Your images, fonts, icons (importable in JS/TS)
+│   ├── App.css           # Styles for App component
+│   ├── App.jsx           # Root React component
+│   ├── index.css         # Global CSS styles
+│   └── main.jsx          # Entry point (renders App into DOM)
+│
+├── .gitignore            # Files to ignore in git
+├── eslint.config.js      # ESLint config for linting
+├── index.html            # Single HTML file (Vite injects React here)
+├── package.json          # Project metadata + dependencies + scripts
+├── vite.config.js        # Vite configuration (plugins, server, build, etc.)
+└── package-lock.json     # Dependency lock file (auto-generated)
+
+-> Babel acts as a translator for your React code. It takes modern JavaScript (like JSX) that browsers don't understand directly. Finally, it 
+converts it into older, compatible JavaScript so your application runs everywhere.
+
+-> React converts JSX into a JavaScript object to efficiently render and manage the UI.
+
+-> JSX → (via Babel) → React.createElement → React Element (JS object) → Virtual DOM → Real DOM
+
+-> Babel transforms JSX into React.createElement calls, which produce plain JavaScript objects (React elements). React uses these objects to build
+ the Virtual DOM, and then efficiently syncs it with the real DOM.
+
+-> Key Concepts of React Components:
+. Each component handles its own logic and UI rendering.
+. Components can be reused throughout the app for consistency.
+. Components accept inputs via props and manage dynamic data using state.
+. Only the changed component re-renders, not the entire page. 
+
+//conditional rendering
+1. if - else 
+
+function Item({ name, isPacked }) {
+    if (isPacked) {
+        return <li className="item">{name} ✅</li>;
+    }
+    return <li className="item">{name}</li>;
+}
+
+2. using ternary operator
+
+function Greeting({ isLoggedIn }) {
+    return <h1>{isLoggedIn ? "Welcome Back!" : "Please Sign In"}</h1>;
+}
+
+3. Logical AND (&&) operator
+
+function Notification({ hasNotifications }) {
+    return <div>{hasNotifications && <p>You have new notifications!</p>}</div>;
+}
+
+//img tag src='' / src={import}
+Static string → quotes ("")
+JS variable/import → curly braces {}
+
+4. switch
+
+function StatusMessage({ status }) {
+    switch (status) {
+        case 'loading':
+            return <p>Loading...</p>;
+        case 'success':
+            return <p>Data loaded successfully!</p>;
+        case 'error':
+            return <p>Error loading data.</p>;
+        default:
+            return <p>Unknown status</p>;
+    }
+}
+
+5. conditional rendering with lists
+
+const fruitList = list
+    .filter(item => item.isFruit)   // keep only fruits
+    .map(item => <li key={item.id}>{item.title}</li>);
+
+6. conditional rendering with components State
+
+if (loading) {
+  // Render Loading Component
+} else {
+  // Render Data Component
+}
+
+const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+   return (
+      <div>
+          {isAuthenticated ? 
+          (<h1>User Profile</h1>) : 
+          (<button onClick={() => setIsAuthenticated(true)}
+          className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700'>
+            Log in
+          </button>)}
+      </div>
+   )
+
+const [isLoading, setIsLoading] = useState(true);
+   const [data, setData] = useState(null);
+
+   useEffect(() => {
+      setTimeout(() => {
+        setData('fetched data');
+        setIsLoading(false);
+      },2000);
+   }, []);
+
+   return (
+      <div>
+         {isLoading ? (<h1>Loading...</h1>) : (<h1>{data}</h1>)}
+      </div>
+   )
+
+// react virtual dom   
+
+// In ReactJS PropTypes are the property that is mainly shared between the parent components to the child components. It is used to solve the type validation problem.
+Note: In the latest version of the react 19 the proptypes has been removed. It was deprecated in react version 15.5.
+now TypeScript is option for this
+
+// Prop drilling refers to the practice of passing data through several layers of nested components in React, even 
+though intermediate components don't directly utilize this data. This means that a middle component doesn't necessarily 
+need the data, but it must still pass it down to the next component, creating an unnecessary and sometimes lengthy chain of props.
+-> Using Context API
+-> Using Custom Hooks
+-> Global State Management (Redux, Zustand, MobX)
+
+// lists -> Use a unique identifier like id when available.
+Avoid using array indexes as keys unless necessary (e.g., static lists without reordering).
+The key prop is essential in React when rendering lists because it helps to identify which items have changed,
+been added, or removed. This allows React to efficiently update and re-render only the changed items in the DOM, rather than re-rendering the entire list.
